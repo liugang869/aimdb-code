@@ -1,0 +1,112 @@
+DATABASE	database_tpcc
+	TABLE	customer	ROWTABLE
+		COLUMN	c_id	INT64
+		COLUMN	c_d_id	INT64
+		COLUMN	c_w_id	INT64
+		COLUMN	c_first	CHARN	16
+		COLUMN	c_middle	CHARN	2
+		COLUMN	c_last	CHARN	16
+		COLUMN	c_street_1	CHARN	20
+		COLUMN	c_street_2	CHARN	20
+		COLUMN	c_city	CHARN	20
+		COLUMN	c_state	CHARN	2
+		COLUMN	c_zip	CHARN	9
+		COLUMN	c_phone	CHARN	16
+		COLUMN	c_since	DATETIME
+		COLUMN	c_credit	CHARN	2
+		COLUMN	c_credit_lim	FLOAT64
+		COLUMN	c_discount	FLOAT64
+		COLUMN	c_balance	FLOAT64
+		COLUMN	c_ytd_payment	FLOAT64
+		COLUMN	c_payment_cnt	INT64
+		COLUMN	c_delivery_cnt	INT64
+		COLUMN	c_data	CHARN	500
+		INDEX	ht_customer	HASHINDEX	c_id	c_d_id	c_w_id
+		INDEX	ht_customer_2	HASHINDEX	c_d_id	c_w_id	c_last
+	TABLE	district	ROWTABLE
+		COLUMN	d_id	INT64
+		COLUMN	d_w_id	INT64
+		COLUMN	d_name	CHARN	10
+		COLUMN	d_street_1	CHARN	20
+		COLUMN	d_street_2	CHARN	20
+		COLUMN	d_city	CHARN	20
+		COLUMN	d_state	CHARN	2
+		COLUMN	d_zip	CHARN	9
+		COLUMN	d_tax	FLOAT64
+		COLUMN	d_ytd	FLOAT64
+		COLUMN	d_next_o_id	INT64
+		INDEX	ht_district	HASHINDEX	d_id	d_w_id
+	TABLE	history	ROWTABLE
+		COLUMN	h_c_id	INT64
+		COLUMN	h_c_d_id	INT64
+		COLUMN	h_c_w_id	INT64
+		COLUMN	h_d_id	INT64
+		COLUMN	h_w_id	INT64
+		COLUMN	h_date	DATETIME
+		COLUMN	h_amount	FLOAT64
+		COLUMN	h_data	CHARN	24
+	TABLE	item	ROWTABLE
+		COLUMN	i_id	INT64
+		COLUMN	i_im_id	INT64
+		COLUMN	i_name	CHARN	24
+		COLUMN	i_price	FLOAT64
+		COLUMN	i_data	CHARN	50
+		INDEX	ht_item	HASHINDEX	i_id
+	TABLE	new_order	ROWTABLE
+		COLUMN	no_o_id	INT64
+		COLUMN	no_d_id	INT64
+		COLUMN	no_w_id	INT64
+		INDEX	ht_neworder	HASHINDEX	no_d_id	no_w_id
+	TABLE	order	ROWTABLE
+		COLUMN	o_id	INT64
+		COLUMN	o_d_id	INT64
+		COLUMN	o_w_id	INT64
+		COLUMN	o_c_id	INT64
+		COLUMN	o_entry_d	DATETIME
+		COLUMN	o_carrier_id	INT64
+		COLUMN	o_ol_cnt	INT64
+		COLUMN	o_all_local	INT64
+		INDEX	ht_order	HASHINDEX	o_id	o_d_id	o_w_id
+		INDEX	ht_order_2	HASHINDEX	o_c_id	o_d_id	o_w_id
+	TABLE	order_line	ROWTABLE
+		COLUMN	ol_o_id	INT64
+		COLUMN	ol_d_id	INT64
+		COLUMN	ol_w_id	INT64
+		COLUMN	ol_number	INT64
+		COLUMN	ol_i_id	INT64
+		COLUMN	ol_supply_w_id	INT64
+		COLUMN	ol_delivery_d	DATETIME
+		COLUMN	ol_quantity	INT64
+		COLUMN	ol_amount	FLOAT64
+		COLUMN	ol_dist_info	CHARN	24
+		INDEX	ht_orderline	HASHINDEX	ol_o_id	ol_d_id	ol_w_id
+	TABLE	stock	ROWTABLE
+		COLUMN	s_i_id	INT64
+		COLUMN	s_w_id	INT64
+		COLUMN	s_quantity	INT64
+		COLUMN	s_dist_01	CHARN	24
+		COLUMN	s_dist_02	CHARN	24
+		COLUMN	s_dist_03	CHARN	24
+		COLUMN	s_dist_04	CHARN	24
+		COLUMN	s_dist_05	CHARN	24
+		COLUMN	s_dist_06	CHARN	24
+		COLUMN	s_dist_07	CHARN	24
+		COLUMN	s_dist_08	CHARN	24
+		COLUMN	s_dist_09	CHARN	24
+		COLUMN	s_dist_10	CHARN	24
+		COLUMN	s_ytd	INT64
+		COLUMN	s_order_cnt	INT64
+		COLUMN	s_remote_cnt	INT64
+		COLUMN	s_data	CHARN	50
+		INDEX	ht_stock	HASHINDEX	s_i_id	s_w_id
+	TABLE	warehouse	ROWTABLE
+		COLUMN	w_id	INT64
+		COLUMN	w_name	CHARN	10
+		COLUMN	w_street_1	CHARN	20
+		COLUMN	w_street_2	CHARN	20
+		COLUMN	w_city	CHARN	20
+		COLUMN	w_state	CHARN	2
+		COLUMN	w_zip	CHARN	9
+		COLUMN	w_tax	FLOAT64
+		COLUMN	w_ytd	FLOAT64
+		INDEX	ht_warehouse	HASHINDEX	w_id
